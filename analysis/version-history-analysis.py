@@ -20,7 +20,8 @@ versions = 0
 def getStoredPostIds():
     global storedIds
     if len(storedIds)== 0:
-        with open('/work/disa_lab/datasets/stackexchange_sites/stackoverflow/Post_Information.csv', mode='r') as f:
+        filename = ""# insert file path to Post_Information.csv
+        with open(filename, mode='r') as f:
             post_info = csv.DictReader(f)
             for row in post_info:
                 storedIds.append(row['PostId'])
@@ -53,8 +54,8 @@ def storeVersionHistory(elem):
     if int(elem.get("Id"))<lastId:
         print("Not yet", elem.get("Id"))
         return 1
-
-    with open('/work/disa_lab/datasets/stackexchange_sites/stackoverflow/Version_Information.csv', mode='a') as output:
+    filename = ""#insert file path to Version_Information
+    with open(filename, mode='a') as output:
         print("Version ID and PostID:", elem.get("Id"), elem.get("PostId"))
         writer = csv.writer(output)
         if elem.get("PostId") in storedIds and (elem.get("PostHistoryTypeId")=="2" or elem.get("PostHistoryTypeId") == "5"):
